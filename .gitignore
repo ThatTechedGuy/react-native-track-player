@@ -56,3 +56,8 @@ example/ios/Pods
 ios/Pods
 ios/RNTrackPlayer.xcworkspace
 Podfile.lock
+.vscode/settings.json
+android/.project
+android/.settings/org.eclipse.buildship.core.prefs
+example/android/.settings/org.eclipse.buildship.core.prefs
+example/android/.project

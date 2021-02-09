@@ -136,6 +136,10 @@ public class LocalPlayback extends ExoPlayback<SimpleExoPlayer> {
         }
     }
 
+    public int getAudioSessionId(){
+        return player.getAudioSessionId();
+    }
+
     private void resetQueue() {
         queue.clear();
 

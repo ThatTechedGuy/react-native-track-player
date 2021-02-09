@@ -429,6 +429,15 @@ public class MusicModule extends ReactContextBaseJavaModule implements ServiceCo
     }
 
     @ReactMethod
+    public void getAudioSessionId(final Promise promise){
+        waitForConnection(() -> {
+            int sessionId = binder.getPlayback().getAudioSessionId();
+
+            promise.resolve(sessionId);
+        });
+    }
+
+    @ReactMethod
     public void getBufferedPosition(final Promise callback) {
         waitForConnection(() -> {
             long position = binder.getPlayback().getBufferedPosition();

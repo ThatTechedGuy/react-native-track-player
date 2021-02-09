@@ -3,11 +3,20 @@ package com.guichaguri.trackplayer.service.player;
 import android.content.Context;
 import android.support.v4.media.session.PlaybackStateCompat;
 import android.util.Log;
+
 import androidx.annotation.NonNull;
+
 import com.facebook.react.bridge.Promise;
-import com.google.android.exoplayer2.*;
+import com.google.android.exoplayer2.C;
+import com.google.android.exoplayer2.ExoPlaybackException;
+import com.google.android.exoplayer2.Format;
+import com.google.android.exoplayer2.PlaybackParameters;
+import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.Player.EventListener;
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.Timeline.Window;
+import com.google.android.exoplayer2.analytics.AnalyticsListener;
 import com.google.android.exoplayer2.metadata.Metadata;
 import com.google.android.exoplayer2.metadata.MetadataOutput;
 import com.google.android.exoplayer2.metadata.icy.IcyHeaders;
@@ -20,6 +29,7 @@ import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.guichaguri.trackplayer.service.MusicManager;
 import com.guichaguri.trackplayer.service.Utils;
 import com.guichaguri.trackplayer.service.models.Track;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -28,7 +38,7 @@ import java.util.List;
 /**
  * @author Guichaguri
  */
-public abstract class ExoPlayback<T extends Player> implements EventListener, MetadataOutput {
+public abstract class ExoPlayback<T extends SimpleExoPlayer> implements EventListener, MetadataOutput {
 
     protected final Context context;
     protected final MusicManager manager;
@@ -79,6 +89,10 @@ public abstract class ExoPlayback<T extends Player> implements EventListener, Me
     public Track getCurrentTrack() {
         int index = player.getCurrentWindowIndex();
         return index < 0 || index >= queue.size() ? null : queue.get(index);
+    }
+
+    public int getAudioSessionId(){
+        return player.getAudioSessionId();
     }
 
     public void skip(String id, Promise promise) {
@@ -422,4 +436,5 @@ public abstract class ExoPlayback<T extends Player> implements EventListener, Me
         handleId3Metadata(metadata);
         handleIcyMetadata(metadata);
     }
+
 }
